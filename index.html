@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giới thiệu Nhóm</title>
+</head>
+<body>
+    <div align="center" style="max-width: 1200px; margin: 0 auto; font-family: Arial, sans-serif;">
+        <header>
+            <h1>🚀 Giới Thiệu Về Nhóm Dự Án 🚀</h1>
+        </header>
+
+        <nav>
+            <input type="text" id="question-input" placeholder="Nhập câu hỏi của bạn..." size="50">
+            <button id="submit-btn">Gửi Câu Hỏi</button>
+        </nav>
+
+        <div id="response" style="margin: 20px 0; padding: 10px; border: 1px solid #ccc;"></div>
+
+        <section>
+            <h2>🌟 Các Thành Viên Nhóm</h2>
+            <table border="1" width="100%" cellpadding="10" cellspacing="0">
+                <thead style="background-color: #f0f0f0;">
+                    <tr>
+                        <th width="20%">Họ và Tên</th>
+                        <th width="10%">Ngày Sinh</th>
+                        <th width="40%">Sở Thích</th>
+                        <th width="30%">Liên Kết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="center"><strong>Phạm Thị Thùy Diễm</strong></td>
+                        <td align="center">28/12/2007</td>
+                        <td>
+                            🎵 Nghe nhạc (HTH, Phan Mạnh Quỳnh, Q.Hùng master dê, ronboogz, Dương domic)<br>
+                            🌱 Trồng cây, đi du lịch<br>
+                            <em>💖 Ước mơ: Kiếm thật nhiều tiền cho Ba Mẹ mua đồ ko cần nhìn giá :))</em>
+                        </td>
+                        <td>
+                            <a href="https://www.facebook.com/profile.php?id=100043445962585">📘 Facebook</a><br>
+                            <a href="https://www.tiktok.com/@phamthuydiemx_2812">🎥 TikTok</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center"><strong>Nguyễn Lê Thảo My</strong></td>
+                        <td align="center">08/09/2007</td>
+                        <td>
+                            🏸 Đánh cầu lông<br>
+                            🎶 Nghe nhạc
+                        </td>
+                        <td>
+                            <a href="https://www.facebook.com/profile.php?id=100077683969764">📘 Facebook</a><br>
+                            <a href="https://www.tiktok.com/@_latte.ttmychinhgai">🎥 TikTok</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center"><strong>Nguyễn Văn Vin</strong></td>
+                        <td align="center">21/01/2007</td>
+                        <td>
+                            😴 Đi ngủ
+                        </td>
+                        <td>
+                            <a href="https://www.tiktok.com/@sukablyadbimbimbam">🎥 TikTok</a><br>
+                            <a href="#">📘 Facebook</a><br>
+                            <a href="https://github.com/vinzcyun">💻 Github</a><br>
+                            <a href="https://t.me/wynriu">📡 Telegram</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>🖼️ Hình Ảnh và Video</h2>
+            <div align="center">
+                <img src="your-image-url.jpg" alt="Hình ảnh nhóm" width="600" height="400">
+                <br>
+                <video width="640" height="480" controls>
+                    <source src="your-video-url.mp4" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ video.
+                </video>
+            </div>
+        </section>
+
+        <section>
+            <h2>🎯 Về Dự Án</h2>
+            <p align="center" style="max-width: 800px; margin: 0 auto;">
+                Chúng tôi là một nhóm sinh viên đam mê công nghệ và sáng tạo, với mục tiêu phát triển các dự án có ý nghĩa và đổi mới.
+            </p>
+        </section>
+
+        <footer>
+            <h2>📞 Liên Hệ</h2>
+            <p align="center">
+                Để liên hệ với chúng tôi, vui lòng nhấn vào địa chỉ email bên dưới:<br>
+                <a href="mailto:kesyrou@gmail.com">✉️ Gửi Email</a>
+            </p>
+            
+            <p align="center">
+                AI Chat được hỗ trợ bởi Google Cloud Platform<br>
+                © 2024 Nhóm Dự Án. Bảo lưu mọi quyền.
+            </p>
+        </footer>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        const API_KEY = "AIzaSyC-V3EfjLTDmJR5CTymMHDnqRp2VlrLX5E";
+        const genAI = new GoogleGenerativeAI(API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        const questionInput = document.getElementById('question-input');
+        const submitBtn = document.getElementById('submit-btn');
+        const responseDiv = document.getElementById('response');
+
+        submitBtn.addEventListener('click', async () => {
+            const question = questionInput.value.trim();
+            if (!question) {
+                responseDiv.textContent = "Vui lòng nhập câu hỏi.";
+                return;
+            }
+
+            try {
+                responseDiv.textContent = "Đang tìm kiếm câu trả lời...";
+                const result = await model.generateContent(question);
+                const response = await result.response;
+                const text = await response.text();
+                responseDiv.textContent = text;
+            } catch (error) {
+                console.error("Lỗi:", error);
+                responseDiv.textContent = "Đã xảy ra lỗi. Vui lòng thử lại.";
+            }
+        });
+    </script>
+</body>
+</html>
